@@ -30,8 +30,8 @@ To audit **46** unconditional pure-Mathlib headline theorems without reading any
      - `bochner_negative_weight_vanishing` (Negative-weight vanishing on Mathlib `ModularForm` / `CuspForm`)
      - `hager_gauss_legendre_sharp`, `hager_radau_bound` (Hager's unproved 2015 sharper Gauss–Legendre reverse-Markov inequality `|p(τᵢ)| ≤ 1 + τ_{n-1}` + Radau `≤ 2`)
      - `stirling_factorial_bounds` (Two-sided non-asymptotic Stirling–Robbins factorial bounds)
-   - **World-Record & Classical Combinatorics, Convexity, Algebra & Topology (`18–28, 31–44`):**
-     - `erdos_711_upper_bound` (`max_m f(n, m) ≤ 13 n^{10/7} + 2`), `nfa_separating_words_bound` (`O(n^{1/3} (log n)^{2/3})`), `ramsey_diagonal_exponential_improvement` (`R(k, k) ≤ (399/100)^k`), `roth_three_ap_quantitative`, `rankin_general_k_ap_free_lower`, `ruzsa_1998_infinite_sidon`, `sidon_b3_upper_bound_beats_green` (`(699/200)^{1/3}`), `unitary_perfect_sharper_upper_bound` (`n < 3^{2^{ω(n)-1}}`)
+   - **Frontier-Candidate & Classical Combinatorics, Convexity, Algebra & Topology (`18–28, 31–44`):**
+     - `erdos_711_upper_bound` (`max_m f(n, m) ≤ 13 n^{10/7} + 2`), `nfa_separating_words_bound` (`O(n^{1/3} (log n)^{2/3})`), `ramsey_diagonal_exponential_improvement` (CGMS-era `R(k, k) ≤ (399/100)^k`), `roth_three_ap_quantitative` (Roth 1953), `rankin_general_k_ap_free_lower` (Rankin 1961), `ruzsa_1998_infinite_sidon` (Ruzsa 1998), `sidon_b3_upper_bound_beats_green` (`(699/200)^{1/3}`, beats Green 2001, behind `≈ 1.5155`), `unitary_perfect_sharper_upper_bound` (`n < 3^{2^{ω(n)-1}}`)
      - `combinatorial_nullstellensatz`, `cauchy_davenport`, `chevalley_warning`, `corners_theorem`
      - `farkas_lemma`, `von_neumann_minimax`, `birkhoff_von_neumann`, `dilworth_theorem`
      - `sperner_theorem`, `erdos_ko_rado`, `sauer_shelah`, `brunn_minkowski_1d`
@@ -74,7 +74,7 @@ To audit **46** unconditional pure-Mathlib headline theorems without reading any
 
 ## `Prize/` & `RHDirect/PPL*` Formalizations (`77` Modules, `174,637` Lines)
 
-Alongside the **2 fully closed conjectures** (`PPL 024` and Hager's sharper `PPL 031`), `Arithmetica4` includes **18** modules proving world-record quantitative bounds on open conjectures and **50** verified partial milestones & structural barrier formalizations (see [`docs/PRIZE_CAMPAIGN_CATALOG.md`](docs/PRIZE_CAMPAIGN_CATALOG.md) for the complete 77-module breakdown and honest scope notes).
+Alongside the **2 fully closed conjectures** (`PPL 024` via Bloom's known proof and Hager's unproved 2015 sharper Gauss–Legendre reverse-Markov bound `PPL 031`), `Arithmetica4` partitions these `77` modules transparently against **November 2026** literature into **`5` statement-audited late-2026 frontier candidates** (`14,271` L), **`22` formalizations of known, matched, or pre-2026 results** (`34,153` L), and **`50` verified partial milestones & structural barrier formalizations** (`126,213` L) — see [`docs/PRIZE_CAMPAIGN_CATALOG.md`](docs/PRIZE_CAMPAIGN_CATALOG.md) for the complete 77-module breakdown, exact Lean statement-audit notes, and updated 2026 baselines.
 
 ---
 
