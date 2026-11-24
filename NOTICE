@@ -2,7 +2,7 @@ Arithmetica4 — Attribution & Provenance Notice
 
 1. Mathlib4
    This project builds on Mathlib4 (https://github.com/leanprover-community/mathlib4),
-   released under the Apache License 2.0.
+   rev 0df444a360eaa60ab8c11dca51a86af692955474, released under the Apache License 2.0.
 
 2. Local & Global Class Field Theory (`RHDirect/Stage13CFT_IdeleNormResidue.lean`
    and `RHDirect/CFT_*.lean`)
@@ -12,7 +12,20 @@ Arithmetica4 — Attribution & Provenance Notice
    released in Levent Alpöge's Lean 4 archive. All credit for the original Lean 4
    proof architecture of `GroundTheory` belongs to its original author(s).
 
-3. Soundness Transparency
+3. Bounded Prime Gaps (`PrimeGaps/`, `PrimeGapsTheory/`, and `PrimeGapsCert/`)
+   Vendored unmodified from AxiomMath/PrimeGapsLib
+   (https://github.com/AxiomMath/PrimeGapsLib),
+   Copyright 2026 Axiom Math — Licensed under the Apache License 2.0.
+   The Bombieri-Vinogradov hypothesis in `PrimeGapsLib` is discharged unconditionally
+   by `MaynardDock/BombieriVinogradovAdapter.lean` from `RHDirect.Stage11BombieriVinogradov`,
+   yielding `MaynardDock/Capstone246.lean` (`H = 246`).
+
+4. PrimeNumberTheoremAnd
+   Depends on `nil-commits/PrimeNumberTheoremAnd` (rev 6c89d5699e16114be6ec6f1b4ae48818a5ec8cc3,
+   a public fork of `AxiomMath/PrimeNumberTheoremAnd` applying a 1-line Lean v4.33.1
+   compatibility fix in `MediumPNT.lean`).
+
+5. Soundness Transparency
    Please consult `docs/SOUNDNESS_AUDIT.md` for an exact, line-cited classification
    of every theorem in this repository into:
      - Tier A: Unconditional on native Mathlib types (0 extra hypotheses, 0 proxies)

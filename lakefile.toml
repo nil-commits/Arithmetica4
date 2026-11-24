@@ -1,11 +1,18 @@
 name = "arithmetica4"
 version = "1.0.0"
-defaultTargets = ["RHDirect"]
+defaultTargets = ["RHDirect", "MaynardDock", "Challenge", "Solution"]
 
 [leanOptions]
 autoImplicit = false
 relaxedAutoImplicit = false
 pp.unicode.fun = true
+maxHeartbeats = 0
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "PrimeNumberTheoremAnd"
+git = "https://github.com/nil-commits/PrimeNumberTheoremAnd.git"
+rev = "6c89d5699e16114be6ec6f1b4ae48818a5ec8cc3"
 
 [[require]]
 name = "mathlib"
@@ -33,5 +40,31 @@ roots = [
   "RHDirect.GL2SmoothLLCUnconditional",
   "RHDirect.LatticeSmoothingFull",
   "RHDirect.MaynardTaoReduction",
+  "RHDirect.MaynardTaoUnconditional",
   "RHDirect.UnifiedSoundnessAudit"
 ]
+
+[[lean_lib]]
+name = "PrimeGapsTheory"
+roots = ["PrimeGapsTheory"]
+
+[[lean_lib]]
+name = "PrimeGapsCert"
+roots = ["PrimeGapsCert"]
+
+[[lean_lib]]
+name = "PrimeGaps"
+roots = ["PrimeGaps"]
+
+[[lean_lib]]
+name = "MaynardDock"
+roots = ["MaynardDock"]
+leanOptions = { weak.linter.flexible = true, weak.linter.mathlibStandardSet = true, weak.linter.style.header = false }
+
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]
