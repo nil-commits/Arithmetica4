@@ -5,7 +5,7 @@ import Lean.Util.CollectAxioms
 Trustless verification helper: loads the compiled environments of `Challenge` and `Solution`
 separately and verifies that:
 1. `Challenge` imports ONLY upstream Mathlib / Lean / Init / Batteries / Std modules
-   (zero `RHDirect`, `PrimeGaps`, `MaynardDock`, or `Solution` imports).
+   (zero `RHDirect`, `Prize`, `PrimeGaps`, `MaynardDock`, or `Solution` imports).
 2. Every target theorem exists in both environments as a `thmInfo`.
 3. Its universe parameters and type `Expr` in `Solution` are syntactically identical to those
    in `Challenge`.
@@ -30,6 +30,39 @@ def targetTheorems : List Name :=
   , `hilbert_class_field_artin
   , `siegel_l1_lower_bound
   , `bochner_negative_weight_vanishing
+  , `sun_prime_shifted_unit_fractions
+  , `weird_positive_lower_density
+  , `erdos_708_split_clique_lower
+  , `hager_gauss_legendre_sharp
+  , `hager_radau_bound
+  , `erdos_711_upper_bound
+  , `nfa_separating_words_bound
+  , `ramsey_diagonal_exponential_improvement
+  , `roth_three_ap_quantitative
+  , `rankin_general_k_ap_free_lower
+  , `ruzsa_1998_infinite_sidon
+  , `sidon_b3_upper_bound_beats_green
+  , `unitary_perfect_sharper_upper_bound
+  , `combinatorial_nullstellensatz
+  , `cauchy_davenport
+  , `chevalley_warning
+  , `polya_vinogradov
+  , `brun_titchmarsh_interval
+  , `corners_theorem
+  , `farkas_lemma
+  , `von_neumann_minimax
+  , `birkhoff_von_neumann
+  , `dilworth_theorem
+  , `sperner_theorem
+  , `erdos_ko_rado
+  , `sauer_shelah
+  , `brunn_minkowski_1d
+  , `van_der_waerden_theorem
+  , `schur_theorem
+  , `brouwer_fixed_point_simplex
+  , `kneser_no_coloring_lt
+  , `stirling_factorial_bounds
+  , `riemannZeta_ne_zero_on_re_one
   ]
 
 def permittedAxioms : List Name :=

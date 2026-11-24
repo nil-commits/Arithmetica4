@@ -31,3 +31,11 @@ Arithmetica4 — Attribution & Provenance Notice
      - Tier A: Unconditional on native Mathlib types (0 extra hypotheses, 0 proxies)
      - Tier B: Conditional reductions / partial campaigns (explicit hypotheses)
      - Tier C: Legacy baseline proxy or toy models preserved for compatibility
+
+6. Arithmetica4 Extensions & Prize Campaign Modules (`RHDirect/Arith4Ext_*`, `RHDirect/PPL*`, `Prize/*`)
+   All 99 merged modules (`22` `RHDirect/Arith4Ext_*.lean` Tier A library engines,
+   `59` `RHDirect/PPL*.lean` prize-problem & milestone modules, and `18` `Prize/*.lean`
+   modules covering PPL 024, PPL 086, and PPL 176) are original Lean 4 (v4.33.1)
+   formalizations written from scratch on targeted Mathlib imports, verified with
+   official `leanchecker` and exhaustive `Lean.collectAxioms` (`0` sorry, `0` custom
+   axioms). See `docs/EXTENSIONS_CATALOG.md` and `docs/PRIZE_CAMPAIGN_CATALOG.md`.

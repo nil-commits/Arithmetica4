@@ -1,59 +1,91 @@
 # Arithmetica4
 
-A Lean 4 (`v4.33.1`) formalization library of landmark theorems in algebraic, analytic, and p-adic number theory built on targeted Mathlib imports (`0` `sorry`, `0` custom axioms, verified with official Lean `leanchecker`).
+A Lean 4 (`v4.33.1`) formalization library of **831 compiling modules** (`971,553` lines) across analytic, algebraic, and p-adic number theory, additive & extremal combinatorics, discrete/incidence geometry, convex optimization, information theory, and formal languages — built on targeted Mathlib imports (`0` `sorry` outside `Challenge.lean`, `0` custom axioms, verified with official Lean `leanchecker`).
 
-> **Mathematical Honesty First:** *Kernel-checked (`0` `sorry`, `leanchecker: PASS`) guarantees logical soundness of each Lean statement, NOT that every statement in a large codebase is unconditional or proxy-free.* See [`docs/SOUNDNESS_AUDIT.md`](docs/SOUNDNESS_AUDIT.md) for a complete, line-cited audit classifying every module into **Tier A (Unconditional Native Mathlib)**, **Tier B (Conditional / Scoped)**, and **Tier C (Legacy Baseline Proxies/Toys)**.
+> **Mathematical Honesty First:** *Kernel-checked (`0` `sorry`, `leanchecker: PASS`) guarantees logical soundness of each Lean statement, NOT that every statement in a large codebase is unconditional or proxy-free.* See [`docs/SOUNDNESS_AUDIT.md`](docs/SOUNDNESS_AUDIT.md) for a complete audit classifying every module into **Tier A (Unconditional Native Mathlib)**, **Tier B (Conditional / Scoped)**, and **Tier C (Legacy Baseline Proxies/Toys)**, plus [`docs/EXTENSIONS_CATALOG.md`](docs/EXTENSIONS_CATALOG.md) and [`docs/PRIZE_CAMPAIGN_CATALOG.md`](docs/PRIZE_CAMPAIGN_CATALOG.md).
 
 ---
 
 ## Trustless Entry Point (`Challenge.lean` ↔ `Solution.lean`)
 
-To audit the unconditional headline theorems without reading any proof internals or trusting intermediate definitions:
+To audit **46** unconditional pure-Mathlib headline theorems without reading any proof internals or trusting intermediate definitions:
 
-1. **[`Challenge.lean`](Challenge.lean)** imports **only upstream Mathlib** (`0` `RHDirect`, `0` `PrimeGaps`, `0` `MaynardDock` imports, `0` custom definitions) and states 13 pure-Mathlib landmark theorems:
-   - `vinogradov_three_primes` (Vinogradov 1937)
-   - `chen_theorem` (Chen 1973, `N = p + P₂`)
-   - `linnik_theorem` (Linnik 1944)
-   - `unconditional_prime_gap_le_246`, `bounded_prime_gaps_246_unconditional`, `frequently_consecutive_prime_gap_le_246` (Polymath8b, `H = 246`)
-   - `maynard_tao_m_tuples` (Maynard–Tao arbitrary `m`-tuples of primes in bounded intervals)
-   - `dwork_rationality` (Dwork 1960 / Weil Conjecture I)
-   - `gauss_class_number_problem` (Heilbronn–Siegel, `h(ℚ(√(-d))) → ∞`)
-   - `hasse_minkowski_general` (General `n`-variable Hasse–Minkowski over `ℚ`)
-   - `hilbert_class_field_artin` (Hilbert Class Field & Artin Reciprocity isomorphism)
-   - `siegel_l1_lower_bound` (Siegel 1935 `L(1, χ)` lower bound, `0` exceptions)
-   - `bochner_negative_weight_vanishing` (Negative-weight vanishing on Mathlib `ModularForm` / `CuspForm`)
-2. **[`Solution.lean`](Solution.lean)** discharges all 13 theorems unconditionally (`0` `sorry`, `0` custom axioms).
+1. **[`Challenge.lean`](Challenge.lean)** imports **only upstream Mathlib** (`0` `RHDirect`, `0` `Prize`, `0` `PrimeGaps`, `0` `MaynardDock` imports, `0` custom definitions) and states **46** pure-Mathlib landmark theorems:
+   - **Prime Numbers & Analytic NT (`1–6b, 13–15, 29–30, 46`):**
+     - `vinogradov_three_primes` (Vinogradov 1937)
+     - `chen_theorem` (Chen 1973, `N = p + P₂`)
+     - `linnik_theorem` (Linnik 1944)
+     - `unconditional_prime_gap_le_246`, `bounded_prime_gaps_246_unconditional`, `frequently_consecutive_prime_gap_le_246` (Polymath8b, `H = 246`)
+     - `maynard_tao_m_tuples` (Maynard–Tao arbitrary `m`-tuples of primes in bounded intervals)
+     - `sun_prime_shifted_unit_fractions` (Zhi-Wei Sun's prime-shifted unit fractions conjecture for both `p - 1` and `p + 1`, Bloom 2023/2025)
+     - `weird_positive_lower_density` (Benkoski–Erdős 1974 positive lower density of weird numbers)
+     - `erdos_708_split_clique_lower` (Erdős #708 sharper split-clique lower bound `g(n) ≥ 2n - √(6n) - 2`)
+     - `polya_vinogradov`, `brun_titchmarsh_interval`, `riemannZeta_ne_zero_on_re_one`
+   - **Algebraic & p-adic NT, Modular Forms & Analysis (`7–12, 16–17, 45`):**
+     - `dwork_rationality` (Dwork 1960 / Weil Conjecture I)
+     - `gauss_class_number_problem` (Heilbronn–Siegel, `h(ℚ(√(-d))) → ∞`)
+     - `hasse_minkowski_general` (General `n`-variable Hasse–Minkowski over `ℚ`)
+     - `hilbert_class_field_artin` (Hilbert Class Field & Artin Reciprocity isomorphism)
+     - `siegel_l1_lower_bound` (Siegel 1935 `L(1, χ)` lower bound, `0` exceptions)
+     - `bochner_negative_weight_vanishing` (Negative-weight vanishing on Mathlib `ModularForm` / `CuspForm`)
+     - `hager_gauss_legendre_sharp`, `hager_radau_bound` (Hager's unproved 2015 sharper Gauss–Legendre reverse-Markov inequality `|p(τᵢ)| ≤ 1 + τ_{n-1}` + Radau `≤ 2`)
+     - `stirling_factorial_bounds` (Two-sided non-asymptotic Stirling–Robbins factorial bounds)
+   - **World-Record & Classical Combinatorics, Convexity, Algebra & Topology (`18–28, 31–44`):**
+     - `erdos_711_upper_bound` (`max_m f(n, m) ≤ 13 n^{10/7} + 2`), `nfa_separating_words_bound` (`O(n^{1/3} (log n)^{2/3})`), `ramsey_diagonal_exponential_improvement` (`R(k, k) ≤ (399/100)^k`), `roth_three_ap_quantitative`, `rankin_general_k_ap_free_lower`, `ruzsa_1998_infinite_sidon`, `sidon_b3_upper_bound_beats_green` (`(699/200)^{1/3}`), `unitary_perfect_sharper_upper_bound` (`n < 3^{2^{ω(n)-1}}`)
+     - `combinatorial_nullstellensatz`, `cauchy_davenport`, `chevalley_warning`, `corners_theorem`
+     - `farkas_lemma`, `von_neumann_minimax`, `birkhoff_von_neumann`, `dilworth_theorem`
+     - `sperner_theorem`, `erdos_ko_rado`, `sauer_shelah`, `brunn_minkowski_1d`
+     - `van_der_waerden_theorem`, `schur_theorem`, `brouwer_fixed_point_simplex`, `kneser_no_coloring_lt`
+2. **[`Solution.lean`](Solution.lean)** discharges all **46** theorems unconditionally (`0` `sorry`, `0` custom axioms).
 3. **[`scripts/verify_challenge.lean`](scripts/verify_challenge.lean)** loads `Challenge` and `Solution` in separate environments (`trustLevel := 0`), confirms `Challenge` has zero project imports, checks syntactic `Expr` identity of every theorem type and universe list, and verifies every theorem in `Solution` depends strictly on `{propext, Classical.choice, Quot.sound}`.
 
 ---
 
-## Tier A — Unconditional Landmarks on Native Mathlib (`0` Extra Hypotheses, `0` Proxies)
+## Tier A — Core `Arithmetica4` Landmarks on Native Mathlib (`0` Extra Hypotheses, `0` Proxies)
 
 | Landmark Theorem | Root Module(s) | Exact Native-Mathlib Statement |
 |---|---|---|
-| **Bounded Prime Gaps (`H = 246`, Polymath8b) & Maynard–Tao `m`-Tuples** | `MaynardDock.Capstone246`, `PrimeGaps.Bounded246`, `MaynardDock.BombieriVinogradovAdapter`, `RHDirect.MaynardTaoUnconditional` | `unconditional_prime_gap_le_246`, `bounded_prime_gaps_246_unconditional`, `frequently_consecutive_prime_gap_le_246` (`0` parameters via Axiom Math's [`PrimeGapsLib`](https://github.com/AxiomMath/PrimeGapsLib) + `RHDirect` B–V discharge), plus `maynard_tao_600_unconditional` and `maynard_tao_m_tuples_unconditional` (`∀ m ≥ 1`, arbitrary `m`-tuples in bounded intervals). |
-| **Dwork's Rationality Theorem (1960) — Weil Conjecture I** | `RHDirect.DworkTraceFormula`, `RHDirect.DworkWeil1Unconditional` (`6,162` L) | `dwork_rationality_unconditional`: rationality of `Z(V(fs), T) ∈ ℚ[[T]]` for **arbitrary** affine algebraic sets `V(fs) ⊆ 𝔸^n` over **arbitrary** finite fields `GaloisField p r` via Dwork splitting function, trace formula, nuclear Fredholm determinant, and Borel–Dwork. |
-| **Vinogradov's Three-Primes Theorem (1937)** | `RHDirect.VinogradovMinorArcBound`, `RHDirect.VinogradovMajorArcEval`, `RHDirect.VinogradovThreePrimes` (`5,080` L) | `vinogradov_three_primes_unconditional : ∃ N₀, ∀ n ≥ N₀, Odd n → ∃ p₁ p₂ p₃, Nat.Prime p₁ ∧ Nat.Prime p₂ ∧ Nat.Prime p₃ ∧ p₁ + p₂ + p₃ = n` (Dirichlet + Vaughan Type I/II minor arcs + uniform Siegel–Walfisz major arcs + singular series). |
-| **Dirichlet Class Number Formula & Gauss–Heilbronn–Siegel `h(ℚ(√(-d))) → ∞`** | `RHDirect.GaussClassNumberUnconditional` (`3,929` L) | `dirichlet_classNumber_formula_imagQuad` & `gauss_classNumber_problem_native_unconditional` directly on Mathlib's native **`NumberField.classNumber`** (`Fintype.card (ClassGroup (𝓞 K))`). |
-| **Full Arithmetic + Spectral Weil Explicit Formula & Positivity Criterion** | `RHDirect.WeilExplicitPositivity` (`2,924` L) | `weil_explicit_formula` & `weil_positivity_arith_iff_RH : RiemannHypothesis ↔ ∀ f : AdmissibleWeilTest, 0 ≤ (weilArithDist (weilSelfConv f)).re` directly on native `ArithmeticFunction.vonMangoldt` and `riemannZeta` (zero reference to zeros on the arithmetic side). |
-| **General `n`-Variable Hasse–Minkowski Theorem over `ℚ`** | `RHDirect.HasseMinkowskiGeneral` (`1,828` L) | `hasse_minkowski_general_V` & `hasse_minkowski_general_Q`: local–global isotropy over `ℝ` and all `ℚ_[p]` for **every** dimension `n : ℕ` and **every** nondegenerate `QuadraticForm ℚ V`. |
-| **Local & Global Class Field Theory, Ray Class Fields, & Hilbert Class Field** | `RHDirect.CFT_HilbertClassField`, `RHDirect.CFT_HilbertArtinBridge` (`16` modules, `57,874` L) | `localReciprocity`, `reciprocityMapEquiv`, `normGroupOrderIso`, `hilbertClassFieldArtinEquiv : ClassGroup (𝓞 K) ≃* Gal(H_K/K)`, and 0-parameter `hilbertArtinData_unconditional`. *(Extracted and consolidated from Levent Alpöge's public `GroundTheory` formalization; see [`NOTICE`](NOTICE).)* |
-| **Chen's Theorem (`N = p + P₂`)** | `RHDirect.ChenTheorem` (`7` modules, `14,630` L) | `chen_theorem : ∃ N₀, ∀ n ≥ N₀, Even n → ∃ p q, Nat.Prime p ∧ IsP2 q ∧ p + q = n` via Rosser–Iwaniec linear sieve + bilinear Bombieri–Vinogradov. |
+| **Zhi-Wei Sun Prime-Shifted Unit Fractions (`PPL 024`)** | `Prize.PPL024_Main` (`8` modules, `9,612` L) | `ppl024_sun_minus_one`, `ppl024_sun_plus_one`, `ppl024_sun_both`: every `r > 0` in `ℚ` is `∑_{p ∈ S} 1 / (p + d)` for distinct primes `p` and `d ∈ {-1, 1}` (formalizing Bloom 2023/2025). |
+| **Hager Sharper Gauss–Legendre Reverse-Markov (`PPL 031`)** | `RHDirect.PPL031_HagerGaussSharp` (`3,104` L) | `hager_gauss_legendre_sharp_challenge` (`|p(τᵢ)| ≤ 1 + τ_{n-1}`), `hager_gauss_legendre_sharp_attained`, `hager_radau_bound_challenge` (`≤ 2`), closing Hager's unproved 2015 sharper Gauss bound. |
+| **Bounded Prime Gaps (`H = 246`, Polymath8b) & Maynard–Tao `m`-Tuples** | `MaynardDock.Capstone246`, `PrimeGaps.Bounded246`, `MaynardDock.BombieriVinogradovAdapter`, `RHDirect.MaynardTaoUnconditional` | `unconditional_prime_gap_le_246`, `bounded_prime_gaps_246_unconditional`, `frequently_consecutive_prime_gap_le_246` (`0` parameters via Axiom Math's [`PrimeGapsLib`](https://github.com/AxiomMath/PrimeGapsLib) + `RHDirect` B–V discharge), plus `maynard_tao_m_tuples_unconditional`. |
+| **Dwork's Rationality Theorem (1960) — Weil Conjecture I** | `RHDirect.DworkTraceFormula`, `RHDirect.DworkWeil1Unconditional` (`6,162` L) | `dwork_rationality_unconditional`: rationality of `Z(V(fs), T) ∈ ℚ[[T]]` for **arbitrary** affine algebraic sets `V(fs) ⊆ 𝔸ⁿ` over **arbitrary** `GaloisField p r`. |
+| **Vinogradov's Three-Primes Theorem (1937)** | `RHDirect.VinogradovMinorArcBound`, `RHDirect.VinogradovMajorArcEval`, `RHDirect.VinogradovThreePrimes` (`5,080` L) | `vinogradov_three_primes_unconditional : ∃ N₀, ∀ n ≥ N₀, Odd n → ∃ p₁ p₂ p₃, Nat.Prime p₁ ∧ Nat.Prime p₂ ∧ Nat.Prime p₃ ∧ p₁ + p₂ + p₃ = n`. |
+| **Dirichlet Class Number Formula & Gauss–Heilbronn–Siegel `h(ℚ(√(-d))) → ∞`** | `RHDirect.GaussClassNumberUnconditional` (`3,929` L) | `dirichlet_classNumber_formula_imagQuad` & `gauss_classNumber_problem_native_unconditional` directly on Mathlib's native **`NumberField.classNumber`**. |
+| **Full Arithmetic + Spectral Weil Explicit Formula & Positivity Criterion** | `RHDirect.WeilExplicitPositivity` (`2,924` L) | `weil_explicit_formula` & `weil_positivity_arith_iff_RH` directly on native `ArithmeticFunction.vonMangoldt` and `riemannZeta`. |
+| **General `n`-Variable Hasse–Minkowski Theorem over `ℚ`** | `RHDirect.HasseMinkowskiGeneral` (`1,828` L) | `hasse_minkowski_general_V` & `hasse_minkowski_general_Q` for **every** `n : ℕ` and nondegenerate `QuadraticForm ℚ V`. |
+| **Local & Global Class Field Theory, Ray Class Fields, & Hilbert Class Field** | `RHDirect.CFT_HilbertClassField`, `RHDirect.CFT_HilbertArtinBridge` (`16` modules, `57,874` L) | `localReciprocity`, `reciprocityMapEquiv`, `normGroupOrderIso`, `hilbertClassFieldArtinEquiv : ClassGroup (𝓞 K) ≃* Gal(H_K/K)`, and 0-parameter `hilbertArtinData_unconditional`. |
+| **Chen's Theorem (`N = p + P₂`)** | `RHDirect.ChenTheorem` (`7` modules, `14,630` L) | `chen_theorem` via Rosser–Iwaniec linear sieve + bilinear Bombieri–Vinogradov. |
 | **Linnik's Theorem (1944) & Bombieri–Vinogradov (`ϑ = 1/2`)** | `RHDirect.Stage11LinnikUnconditional`, `RHDirect.Stage11BombieriVinogradov` | `linnik_least_prime_in_ap_unconditional` & `bombieri_vinogradov` on native `DirichletCharacter.LFunction`, `vonMangoldt`, `Nat.Prime`, `Nat.ModEq`. |
-| **Full Micciancio–Regev (2007) Lattice Smoothing** | `RHDirect.LatticeSmoothingFull` (`650` L) | MR07 Lemmas 3.2 (full `0 < ε ≤ 1` dual bound), 3.3 (primal `λ_n` & Gram–Schmidt bounds), and 4.1 (TV distance `≤ ε / 2` to uniform on `ℝ^n / Λ`) on native `IsZLattice`. |
-| **Borel–Dwork Rationality & Jacobi–Fredholm Determinant Identity** | `RHDirect.DworkRatMain`, `RHDirect.DworkRatFredholmComplete` | `borel_dwork_rationality`, Jacobi's `derivative_det`, and `exp(∑ Tr(A^m) T^m / m) * det(1 - T A) = 1` over any char-0 field `K` + descent to `ℚ`. |
-| **Additional Native Baseline Results** | `RHDirect.Stage5–Stage11` | Effective PNT, uniform Siegel–Walfisz, Siegel's `L(1, χ) ≥ C(ε) q^{-ε}`, Li's 1997 criterion, Manin's `Δ` period ratios (`691 Λ(Δ,1) = 1620 Λ(Δ,3) = 2520 Λ(Δ,5)`), Bochner negative-weight vanishing on native `ModularForm`/`CuspForm`, textbook LLL & Minkowski's 2nd Theorem, and smooth principal-series/Steinberg reps on `GL (Fin 2) ℚ_[p]`. |
+| **Full Micciancio–Regev (2007) Lattice Smoothing** | `RHDirect.LatticeSmoothingFull` (`650` L) | MR07 Lemmas 3.2 (`0 < ε ≤ 1`), 3.3 (primal `λ_n` & Gram–Schmidt), and 4.1 (TV distance `≤ ε / 2`) on native `IsZLattice`. |
+| **Borel–Dwork Rationality & Jacobi–Fredholm Determinant Identity** | `RHDirect.DworkRatMain`, `RHDirect.DworkRatFredholmComplete` | `borel_dwork_rationality`, Jacobi's `derivative_det`, and `exp(∑ Tr(A^m) T^m / m) * det(1 - T A) = 1`. |
+| **Additional Native Baseline Results** | `RHDirect.Stage5–Stage11` | Effective PNT, uniform Siegel–Walfisz, Siegel's `L(1, χ) ≥ C(ε) q^{-ε}`, Li's 1997 criterion, Manin's `Δ` period ratios, Bochner negative-weight vanishing, LLL & Minkowski's 2nd Theorem, smooth `GL₂(ℚ_p)` reps. |
+
+---
+
+## Tier A Library Extensions (`22` `RHDirect/Arith4Ext_*` Engines, `58,382` Lines)
+
+22 modular, self-contained Tier A engines built from scratch on targeted Mathlib imports (see [`docs/EXTENSIONS_CATALOG.md`](docs/EXTENSIONS_CATALOG.md) for the full exported API of every file):
+
+- **Additive & Analytic NT:** [`Arith4Ext_AdditiveFourier.lean`](RHDirect/Arith4Ext_AdditiveFourier.lean) (Ruzsa, Plünnecke–Ruzsa, BSG, DFT, Bohr increment), [`Arith4Ext_AnalyticNT.lean`](RHDirect/Arith4Ext_AnalyticNT.lean) (Abel summation, hyperbola/divisor moments, Weyl/van der Corput, Fejér/Dirichlet kernels, explicit Chebyshev & Mertens), [`Arith4Ext_CircleMethod.lean`](RHDirect/Arith4Ext_CircleMethod.lean) (Parseval/Ramanujan sums/Hua `L⁴`/Vaughan minor arcs, Mann 1942), [`Arith4Ext_LargeSieveDiophantine.lean`](RHDirect/Arith4Ext_LargeSieveDiophantine.lean) (Gallagher/Farey large sieve, Blichfeldt/Minkowski, Dirichlet, Weyl equidistribution, Liouville), [`Arith4Ext_SieveCharacters.lean`](RHDirect/Arith4Ext_SieveCharacters.lean) (Selberg sieve, Brun–Titchmarsh, Gauss sums, Pólya–Vinogradov, Turán–Kubilius, Vaughan), [`Arith4Ext_ZetaLFunctions.lean`](RHDirect/Arith4Ext_ZetaLFunctions.lean) (Euler products, `Re s = 1` non-vanishing, Hadamard three-circles, Jensen, effective Perron).
+- **Combinatorics, Graph Theory & Topology:** [`Arith4Ext_AlgebraicMethod.lean`](RHDirect/Arith4Ext_AlgebraicMethod.lean) (Combinatorial Nullstellensatz, Cauchy–Davenport, Erdős–Heilbronn, Schwartz–Zippel, Chevalley–Warning, Oddtown), [`Arith4Ext_AutomataCombinatorics.lean`](RHDirect/Arith4Ext_AutomataCombinatorics.lean) (Fine–Wilf, Lyndon–Schützenberger, Myhill–Nerode, NFA/DFA closures, pumping), [`Arith4Ext_GeneratingFunctions.lean`](RHDirect/Arith4Ext_GeneratingFunctions.lean) (Catalan, Euler/pentagonal partitions, `p(n) ≤ exp(π√(2n/3))`, Stirling–Robbins, `q`-binomial), [`Arith4Ext_GraphSpectral.lean`](RHDirect/Arith4Ext_GraphSpectral.lean) (traces, Rayleigh, Expander Mixing, Hoffman, Cheeger), [`Arith4Ext_MatroidsPosets.lean`](RHDirect/Arith4Ext_MatroidsPosets.lean) (greedy, Edmonds matroid intersection, poset Möbius inversion, Rota cross-cut), [`Arith4Ext_ProbExtremal.lean`](RHDirect/Arith4Ext_ProbExtremal.lean) (LLL, Chernoff–Hoeffding, Kővári–Sós–Turán, Dependent Random Choice, Crossing Lemma, Turán, supersaturation), [`Arith4Ext_RamseyCombinatorics.lean`](RHDirect/Arith4Ext_RamseyCombinatorics.lean) (Ramsey, Schur, Erdős–Szekeres, Happy Ending, Hales–Jewett, Van der Waerden), [`Arith4Ext_SetSystemsCorrelation.lean`](RHDirect/Arith4Ext_SetSystemsCorrelation.lean) (Bollobás, LYM, Sperner, EKR, Sauer–Shelah, Ahlswede–Daykin, Harris–Kleitman–FKG), [`Arith4Ext_SzemerediRegularity.lean`](RHDirect/Arith4Ext_SzemerediRegularity.lean) (Szemerédi Regularity, Triangle Counting/Removal, Ruzsa–Szemerédi, Roth, Corners), [`Arith4Ext_TopologicalComb.lean`](RHDirect/Arith4Ext_TopologicalComb.lean) (Sperner, Brouwer Fixed Point, Ky Fan, Tucker, discrete Borsuk–Ulam, Lovász's Kneser chromatic number).
+- **Geometry, Optimization, Approximation & Quantum Info:** [`Arith4Ext_ConvexOptDuality.lean`](RHDirect/Arith4Ext_ConvexOptDuality.lean) (Farkas, LP strong duality, Von Neumann minimax, Birkhoff–von Neumann, König–Egerváry, Dilworth), [`Arith4Ext_EntropyCoding.lean`](RHDirect/Arith4Ext_EntropyCoding.lean) (Shannon entropy, Pinsker, Shearer/Han, Kraft–McMillan, Singleton/Hamming/GV/Plotkin, `𝔽_p` MacWilliams), [`Arith4Ext_GeometryIncidence.lean`](RHDirect/Arith4Ext_GeometryIncidence.lean) (Sylvester–Gallai, topology-free `SlabWiring` Crossing Lemma, Szemerédi–Trotter, Beck, unit & Székely distinct distances), [`Arith4Ext_MeasureConvex.lean`](RHDirect/Arith4Ext_MeasureConvex.lean) (Carathéodory, Radon, Helly, Loomis–Whitney, Steinhaus, 1D Brunn–Minkowski), [`Arith4Ext_PolyInterpolation.lean`](RHDirect/Arith4Ext_PolyInterpolation.lean) (Lagrange/Vandermonde, Chebyshev minimax, Bernstein rates, Lebesgue quasi-optimality), [`Arith4Ext_QuantumLinearAlgebra.lean`](RHDirect/Arith4Ext_QuantumLinearAlgebra.lean) (Welch & Gerzon bounds, Schur product, Kronecker, Peres–Horodecki PPT, Weyl–Heisenberg).
+
+---
+
+## `Prize/` & `RHDirect/PPL*` Formalizations (`77` Modules, `174,637` Lines)
+
+Alongside the **2 fully closed conjectures** (`PPL 024` and Hager's sharper `PPL 031`), `Arithmetica4` includes **18** modules proving world-record quantitative bounds on open conjectures and **50** verified partial milestones & structural barrier formalizations (see [`docs/PRIZE_CAMPAIGN_CATALOG.md`](docs/PRIZE_CAMPAIGN_CATALOG.md) for the complete 77-module breakdown and honest scope notes).
 
 ---
 
 ## Scoped & Conditional Results (Explicitly Bounded Scope)
 
 - **`RHDirect.ArtinDedekindGenuine`** (`1,791` L): Genuine `Ideal.arithFrobAt` Artin `L`-functions linked directly to `Stage7DedekindZeta.dedekindZeta` (incl. `ℚ(∛2)` `S₃` factorization for all `p ≠ 2, 3`); scoped to unramified Euler factors on `Re(s) > 1`.
-- **`RHDirect.GL2SmoothLLCUnconditional`** (`1,937` L): Genuine non-supercuspidal `GL₂(ℚ_p)` admissibility (`SmoothInd`, `SmoothSteinberg`) + Local CFT pullback to `W_{ℚ_p}^{ab} ≤ Gal(ℚ_p^{ab}/ℚ_p)` + `heckeTp`/`steinbergHeckeUp` & `LinearMap.det` on `V^{I, N=0}`. **Does not cover supercuspidal representations, non-abelian `W_{ℚ_p}`, or local `ε`-factors.**
-- **`RHDirect.DworkZetaPolyElliptic`** (`279` L): Exact `PowerSeries ℚ` rationality for arbitrary complex Frobenius eigenvalues `α, β ∈ ℂ` (`N_m = q^m + 1 - (α^m + β^m)`) and genus-`g` matrix Frobenius (`q^m + 1 - Tr(F^m)`).
-- **`RHDirect.MaynardTaoReduction` & `RHDirect.MaynardTaoUnconditional`**: `MaynardTaoReduction` defines the admissible 50-tuple / W-trick framework; `RHDirect.MaynardTaoSieve` + `RHDirect.MaynardTaoUnconditional` unconditionally discharge `AnalyticCore` (`H ≤ 600`) and `MAnalyticCore` (`maynard_tao_m_tuples_unconditional`), while `MaynardDock.Capstone246` achieves the sharper `H = 246` Polymath8b bound.
+- **`RHDirect.GL2SmoothLLCUnconditional`** (`1,937` L): Genuine non-supercuspidal `GL₂(ℚ_p)` admissibility + Local CFT pullback + Hecke/`LinearMap.det` compatibility; does not cover supercuspidals or local `ε`-factors.
+- **`RHDirect.DworkZetaPolyElliptic`** (`279` L): Exact `PowerSeries ℚ` rationality for arbitrary complex Frobenius eigenvalues `α, β ∈ ℂ` and genus-`g` matrix Frobenius.
+- **`RHDirect.MaynardTaoReduction` & `RHDirect.MaynardTaoUnconditional`**: Discharges `AnalyticCore` (`H ≤ 600`) and `MAnalyticCore` (`maynard_tao_m_tuples_unconditional`); `MaynardDock.Capstone246` gives `H = 246`.
 - **`RHDirect.Main`**: Top-level RH/GRH architecture is **100% conditional** on open arithmetic-geometry / patching hypotheses (Pillars 2–4).
-- **`RHDirect.UnifiedSoundnessAudit`** (`601` L): 13 kernel-pinned 0-assumption native witnesses + honest 40-entry classification manifest.
+- **`RHDirect.UnifiedSoundnessAudit`** (`601` L): 13 kernel-pinned 0-assumption native witnesses + 40-entry Stage-11/campaign manifest.
 
 ---
 
@@ -68,13 +100,20 @@ git clone https://github.com/nil-commits/Arithmetica4.git
 cd Arithmetica4
 lake exe cache get
 
-# Build and verify the trustless Challenge <-> Solution entry point + H = 246:
+# Build and verify the trustless 46-theorem Challenge <-> Solution entry point + H = 246:
 lake build Challenge Solution MaynardDock.Capstone246 MaynardDock.Audit
 lake env lean --run scripts/verify_challenge.lean
+lake env leanchecker --fresh Challenge
 lake env leanchecker --fresh Solution
 lake env leanchecker --fresh MaynardDock.Capstone246
 
-# Build individual RHDirect landmarks:
+# Build the Prize library (PPL 024 Sun Unit Fractions, PPL 086 Weird Numbers, PPL 176 Erdős #708):
+lake build Prize
+
+# Build individual RHDirect landmarks & Arith4Ext Tier A engines:
+lake build RHDirect.PPL031_HagerGaussSharp
+lake build RHDirect.Arith4Ext_SzemerediRegularity
+lake build RHDirect.Arith4Ext_GeometryIncidence
 lake build RHDirect.DworkWeil1Unconditional
 lake build RHDirect.VinogradovThreePrimes
 lake build RHDirect.GaussClassNumberUnconditional
@@ -84,7 +123,7 @@ lake build RHDirect.CFT_HilbertClassField
 lake build RHDirect.ChenTheorem
 
 # Or run the local 3-gate verification harness (cheat scan + leanchecker + exhaustive axiom audit):
-python3 scripts/verify_harness.py RHDirect/DworkWeil1Unconditional.lean RHDirect/VinogradovThreePrimes.lean
+python3 scripts/verify_harness.py Prize/PPL024_Main.lean RHDirect/PPL031_HagerGaussSharp.lean RHDirect/Arith4Ext_GeometryIncidence.lean
 ```
 
 ## License & Attribution
