@@ -1,0 +1,5 @@
+import RHDirect.DworkRatBorelPoly
+open RHDirect.DworkRat
+#print axioms exists_mul_pow_lt_pow
+#print axioms borel_holomorphic_eventually_zero
+#print axioms borel_holomorphic_isPolynomial

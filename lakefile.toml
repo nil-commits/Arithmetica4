@@ -1,0 +1,37 @@
+name = "arithmetica4"
+version = "1.0.0"
+defaultTargets = ["RHDirect"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+pp.unicode.fun = true
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "0df444a360eaa60ab8c11dca51a86af692955474"
+
+[[lean_lib]]
+name = "RHDirect"
+roots = [
+  "RHDirect.Main",
+  "RHDirect.Stage11LinnikUnconditional",
+  "RHDirect.CFT_HilbertClassField",
+  "RHDirect.CFT_HilbertArtinBridge",
+  "RHDirect.VinogradovThreePrimes",
+  "RHDirect.DworkWeil1Unconditional",
+  "RHDirect.DworkZetaVerify",
+  "RHDirect.DworkZetaPolyElliptic",
+  "RHDirect.DworkRatMain",
+  "RHDirect.DworkRatFredholmComplete",
+  "RHDirect.ChenTheorem",
+  "RHDirect.GaussClassNumberUnconditional",
+  "RHDirect.WeilExplicitPositivity",
+  "RHDirect.HasseMinkowskiGeneral",
+  "RHDirect.ArtinDedekindGenuine",
+  "RHDirect.GL2SmoothLLCUnconditional",
+  "RHDirect.LatticeSmoothingFull",
+  "RHDirect.MaynardTaoReduction",
+  "RHDirect.UnifiedSoundnessAudit"
+]

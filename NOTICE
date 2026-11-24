@@ -1,0 +1,20 @@
+Arithmetica4 — Attribution & Provenance Notice
+
+1. Mathlib4
+   This project builds on Mathlib4 (https://github.com/leanprover-community/mathlib4),
+   released under the Apache License 2.0.
+
+2. Local & Global Class Field Theory (`RHDirect/Stage13CFT_IdeleNormResidue.lean`
+   and `RHDirect/CFT_*.lean`)
+   The 15 standalone Local & Global Class Field Theory, Ray Class Field, and Hilbert
+   Class Field modules were extracted, consolidated, and adapted to targeted Mathlib
+   imports (without `import Mathlib`) from the public `GroundTheory` formalization
+   released in Levent Alpöge's Lean 4 archive. All credit for the original Lean 4
+   proof architecture of `GroundTheory` belongs to its original author(s).
+
+3. Soundness Transparency
+   Please consult `docs/SOUNDNESS_AUDIT.md` for an exact, line-cited classification
+   of every theorem in this repository into:
+     - Tier A: Unconditional on native Mathlib types (0 extra hypotheses, 0 proxies)
+     - Tier B: Conditional reductions / partial campaigns (explicit hypotheses)
+     - Tier C: Legacy baseline proxy or toy models preserved for compatibility

@@ -1,0 +1,17 @@
+import RHDirect.LatticeSmoothingGeneral
+
+open RHDirect.LatticeSmoothingGeneral
+
+#print axioms RHDirect.LatticeSmoothingGeneral.shortestNorm_nonneg
+#print axioms RHDirect.LatticeSmoothingGeneral.rhoPunct_scale_le
+#print axioms RHDirect.LatticeSmoothingGeneral.rhoPunct_antitone
+#print axioms RHDirect.LatticeSmoothingGeneral.eta_le_sqrt_scaling
+#print axioms RHDirect.LatticeSmoothingGeneral.summable_dualErr
+#print axioms RHDirect.LatticeSmoothingGeneral.abs_dualErr_le_rhoPunct
+#print axioms RHDirect.LatticeSmoothingGeneral.rhoShift_eq_one_add_dualErr
+#print axioms RHDirect.LatticeSmoothingGeneral.rho_eq_one_add_rhoPunct
+#print axioms RHDirect.LatticeSmoothingGeneral.rhoShift_ge_ratio_mul_rho
+#print axioms RHDirect.LatticeSmoothingGeneral.discreteGaussian_tail_le
+#print axioms RHDirect.LatticeSmoothingGeneral.dGaussian_nonneg
+#print axioms RHDirect.LatticeSmoothingGeneral.tsum_dGaussian
+#print axioms RHDirect.LatticeSmoothingGeneral.dGaussian_le_one

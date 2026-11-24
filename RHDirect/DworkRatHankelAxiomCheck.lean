@@ -1,0 +1,5 @@
+import RHDirect.DworkRatHankel
+open RHDirect.DworkRat
+#print axioms one_le_natAbs_mul_padicNorm
+#print axioms eq_zero_of_natAbs_mul_padicNorm_lt_one
+#print axioms hankelDet_natAbs_le
