@@ -188,6 +188,22 @@ theorem exists_cover_add_one_of_matching {S : Finset ℕ} {u x M : ℕ} {f : ℕ
   · rw [IsCover, Finset.prod_insert hu_notS, Finset.prod_insert hw_notImg, Finset.prod_image hf_inj]
     exact hdvd
 
+/-- Adding one unmatched element `u ≤ M` to a matched set `S` produces a specific witness
+    `w ∈ consecInterval x M \ S.image f` such that `insert w (S.image f)` covers `insert u S`. -/
+theorem exists_witness_add_one_of_matching {S : Finset ℕ} {u x M : ℕ} {f : ℕ → ℕ}
+    (hS_pos : ∀ a ∈ S, 0 < a) (hS_le : ∀ a ∈ S, a ≤ M)
+    (hu_pos : 0 < u) (hu_le : u ≤ M) (hu_notS : u ∉ S)
+    (_hf_mem : ∀ a ∈ S, f a ∈ consecInterval x M)
+    (hf_dvd : ∀ a ∈ S, a ∣ f a) (hf_inj : Set.InjOn f S) :
+    ∃ w ∈ consecInterval x M, w ∉ S.image f ∧ IsCover (insert u S) (insert w (S.image f)) := by
+  obtain ⟨w, hw_mem, hw_notImg, hdvd⟩ :=
+    exists_chain_exit S u x M f hS_pos hS_le hu_pos hu_le hu_notS hf_dvd
+      S.card ∅ u (Finset.empty_subset S) (by simp) hu_pos (dvd_refl u) (fun _ ha => by simp at ha)
+  rw [Finset.sdiff_empty] at hdvd
+  refine ⟨w, hw_mem, hw_notImg, ?_⟩
+  rw [IsCover, Finset.prod_insert hu_notS, Finset.prod_insert hw_notImg, Finset.prod_image hf_inj]
+  exact hdvd
+
 /-- General matching defect-1 theorem: for any `n ≥ 1` and valid `A` (`|A| = n`, `A ⊆ [1, M]`),
     a bipartite matching `S ⊆ A` of size `n - 1` into `consecInterval x M` guarantees an
     unconditional cover `B ⊆ consecInterval x M` with `|B| ≤ n`. -/
@@ -238,6 +254,7 @@ theorem lt_two_mul_of_unique_multiple_in_consecInterval {x M a b₀ : ℕ}
 
 #print axioms card_mul_le_of_forall_dvd
 #print axioms exists_cover_add_one_of_matching
+#print axioms exists_witness_add_one_of_matching
 #print axioms erdos708_upper_n_of_matching_pred
 #print axioms erdos708_upper_six_of_matching_five
 #print axioms lt_two_mul_of_unique_multiple_in_consecInterval
