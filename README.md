@@ -74,7 +74,7 @@ To audit **46** unconditional pure-Mathlib headline theorems without reading any
 
 ## `Prize/` & `RHDirect/PPL*` Formalizations (`77` Modules, `174,637` Lines)
 
-Alongside the **2 fully closed conjectures** (`PPL 024` via Bloom's known proof and Hager's unproved 2015 sharper Gauss–Legendre reverse-Markov bound `PPL 031`), `Arithmetica4` partitions these `77` modules transparently against **November 2026** literature into **`5` statement-audited late-2026 frontier candidates** (`14,271` L), **`22` formalizations of known, matched, or pre-2026 results** (`34,153` L), and **`50` verified partial milestones & structural barrier formalizations** (`126,213` L) — see [`docs/PRIZE_CAMPAIGN_CATALOG.md`](docs/PRIZE_CAMPAIGN_CATALOG.md) for the complete 77-module breakdown, exact Lean statement-audit notes, and updated 2026 baselines.
+Alongside the **2 fully closed conjectures** (`PPL 024` via Bloom's known proof and Hager's unproved 2015 sharper Gauss–Legendre reverse-Markov bound `PPL 031`), `Arithmetica4` partitions these `77` modules transparently against **November 2026** literature into **`4` statement-audited late-2026 frontier candidates** (`8,037` L), **`23` formalizations of known, matched, or pre-2026 results** (`40,387` L, including `PPL 007` general integral-domain `D ≤ N - 3` alongside Krenn et al. `arXiv:2611.26300`'s complex resolution), and **`50` verified partial milestones & structural barrier formalizations** (`126,213` L) — see [`docs/PRIZE_CAMPAIGN_CATALOG.md`](docs/PRIZE_CAMPAIGN_CATALOG.md) for the complete 77-module breakdown, exact Lean statement-audit notes, and updated 2026 baselines.
 
 ---
 
