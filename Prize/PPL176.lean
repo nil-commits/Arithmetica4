@@ -1,4 +1,5 @@
 import Prize.PPL176_UpperSharp
+import Prize.PPL176_UpperCoprimeDual
 
 /-!
 # PPL 176 — Erdős Problem #708: Unconditional Upper-Bound Capstone
@@ -118,10 +119,63 @@ theorem ppl176_upper_master_summary :
     erdos708_upper_sqrt_log_div_loglog,
     erdos708_upper_sqrt_log_div_loglog_int⟩
 
+/-- **`4n` Upper Bound for `M ≥ n²`** (3× sharper than Haoyu Chen's Sept 2026 Lean 4 record
+    `12n`, and 9× lower threshold than `9 n²`). -/
+theorem erdos708_four_n_ge_n2 {A : Finset ℕ} (hA : A.Nonempty) (hge2 : ∀ a ∈ A, 2 ≤ a)
+    (hM : A.card ^ 2 ≤ A.max' hA) (m : ℕ) :
+    ∃ B ⊆ Finset.Icc (m + 1) (m + A.max' hA),
+      B.card ≤ 4 * A.card ∧ (∏ a ∈ A, a) ∣ (∏ b ∈ B, b) := by
+  have h1 : ∀ a ∈ A, 1 ≤ a := fun a ha => le_trans (by norm_num) (hge2 a ha)
+  have hcov := erdos708_four_n_of_ge_n2 h1 m (by rwa [sup_id_eq_max' hA])
+  simpa [Erdos708Covers, Erdos708Interval, sup_id_eq_max' hA] using hcov
+
+/-- **`5n` Upper Bound for `M ≥ n^{7/4}`** (3× sharper than Haoyu Chen's Sept 2026 Lean 4
+    record `15n`). -/
+theorem erdos708_five_n_ge_n74 {A : Finset ℕ} (hA : A.Nonempty) (hge2 : ∀ a ∈ A, 2 ≤ a)
+    (hM : A.card ^ 7 ≤ (A.max' hA) ^ 4) (m : ℕ) :
+    ∃ B ⊆ Finset.Icc (m + 1) (m + A.max' hA),
+      B.card ≤ 5 * A.card ∧ (∏ a ∈ A, a) ∣ (∏ b ∈ B, b) := by
+  have h1 : ∀ a ∈ A, 1 ≤ a := fun a ha => le_trans (by norm_num) (hge2 a ha)
+  have hcov := erdos708_five_n_of_ge_n74 h1 m (by rwa [sup_id_eq_max' hA])
+  simpa [Erdos708Covers, Erdos708Interval, sup_id_eq_max' hA] using hcov
+
+/-- **`5n` Upper Bound for `M ≥ n^{5/3}`** (`|A|⁵ ≤ (max A)³`). -/
+theorem erdos708_five_n_ge_n53 {A : Finset ℕ} (hA : A.Nonempty) (hge2 : ∀ a ∈ A, 2 ≤ a)
+    (hM : A.card ^ 5 ≤ (A.max' hA) ^ 3) (m : ℕ) :
+    ∃ B ⊆ Finset.Icc (m + 1) (m + A.max' hA),
+      B.card ≤ 5 * A.card ∧ (∏ a ∈ A, a) ∣ (∏ b ∈ B, b) := by
+  have h1 : ∀ a ∈ A, 1 ≤ a := fun a ha => le_trans (by norm_num) (hge2 a ha)
+  have hcov := erdos708_five_n_of_ge_n53 h1 m (by rwa [sup_id_eq_max' hA])
+  simpa [Erdos708Covers, Erdos708Interval, sup_id_eq_max' hA] using hcov
+
+/-- **`6n` Upper Bound for `M ≥ n^{3/2}`** (`|A|³ ≤ (max A)²`). -/
+theorem erdos708_six_n_ge_n32 {A : Finset ℕ} (hA : A.Nonempty) (hge2 : ∀ a ∈ A, 2 ≤ a)
+    (hM : A.card ^ 3 ≤ (A.max' hA) ^ 2) (m : ℕ) :
+    ∃ B ⊆ Finset.Icc (m + 1) (m + A.max' hA),
+      B.card ≤ 6 * A.card ∧ (∏ a ∈ A, a) ∣ (∏ b ∈ B, b) := by
+  have h1 : ∀ a ∈ A, 1 ≤ a := fun a ha => le_trans (by norm_num) (hge2 a ha)
+  have hcov := erdos708_six_n_of_ge_n32 h1 m (by rwa [sup_id_eq_max' hA])
+  simpa [Erdos708Covers, Erdos708Interval, sup_id_eq_max' hA] using hcov
+
+/-- **Prefactor-Free Polynomial-Regime Bound (`M ≥ n^{1 + 1/k} → |B| ≤ (2k + 2) n`)**
+    over arbitrary integer intervals `I ⊂ ℤ`. -/
+theorem erdos708_two_k_plus_two_ge_root_int {A : Finset ℕ} (hA : A.Nonempty)
+    (hge2 : ∀ a ∈ A, 2 ≤ a) (k : ℕ) (hk : 1 ≤ k)
+    (hM : A.card ^ (k + 1) ≤ (A.max' hA) ^ k) (m : ℤ) :
+    ∃ B ⊆ Finset.Ico m (m + (A.max' hA : ℤ)),
+      B.card ≤ (2 * k + 2) * A.card ∧ ((∏ a ∈ A, a : ℕ) : ℤ) ∣ (∏ b ∈ B, b) := by
+  have hcov := erdos708_coprime_dual_unit_int hA hge2 m k hk (by rwa [sup_id_eq_max' hA])
+  simpa [Erdos708CoversInt, sup_id_eq_max' hA] using hcov
+
 #print axioms erdos708_upper_sqrt_log
 #print axioms erdos708_upper_sqrt_log_div_loglog
 #print axioms erdos708_upper_sqrt_log_div_loglog_int
 #print axioms erdos708_two_n_three_regimes
+#print axioms erdos708_four_n_ge_n2
+#print axioms erdos708_five_n_ge_n74
+#print axioms erdos708_five_n_ge_n53
+#print axioms erdos708_six_n_ge_n32
+#print axioms erdos708_two_k_plus_two_ge_root_int
 #print axioms ppl176_upper_master_summary
 
 end PPL176

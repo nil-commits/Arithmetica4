@@ -6,6 +6,58 @@ A Lean 4 (`v4.33.1`) formalization library of **831 compiling modules** (`971,55
 
 ---
 
+## Erdős Problem #86 (`PPL 033`): Verbatim Top-Level Definitions & Audit
+
+All public theorems in [`RHDirect/PPL033_B2Q4Bound.lean`](RHDirect/PPL033_B2Q4Bound.lean) are stated **purely in upstream Mathlib primitives** — zero custom/private definitions (`Q`, `IsC4Free`, etc.) appear anywhere in the public theorem signatures. Here are the **exact verbatim Lean 4 definitions** from the four headline theorems (`ppl033_b2q4_upper_exact`, `ppl033_beats_baber_2012_explicit`, `ppl033_lt_603_explicit`, and `ppl033_turan_density_limit_beats_baber`, lines 1369–1507):
+
+```lean
+-- 1. Hypercube Q_n and subgraph relation G ≤ Q_n (pure Mathlib)
+(G : SimpleGraph (Fin n → Bool))
+(hG : G ≤ SimpleGraph.fromRel (fun u v : Fin n → Bool =>
+  (Finset.univ.filter (fun i : Fin n => u i ≠ v i)).card = 1))
+
+-- 2. Undirected edge count |E(G)| and Q_n denominator n * 2 ^ (n - 1)
+G.edgeFinset.card   -- where edgeFinset : Finset (Sym2 (Fin n → Bool))
+(n * 2 ^ (n - 1))   -- undirected |E(Q_n)| for n ≥ 1
+
+-- 3. C_4-freeness (no 4-cycle in G)
+(hfree : ∀ a b c d, a ≠ c → b ≠ d → ¬ (G.Adj a b ∧ G.Adj b c ∧ G.Adj c d ∧ G.Adj d a))
+
+-- 4. Extremal number ex(Q_n, C_4) and full headline asymptotic theorem signature
+theorem ppl033_turan_density_limit_beats_baber :
+    open Classical in
+    ∃ L : ℝ,
+      Filter.Tendsto
+        (fun n : ℕ =>
+          ((sSup { m : ℕ | ∃ G : SimpleGraph (Fin n → Bool),
+              G ≤ SimpleGraph.fromRel (fun u v : Fin n → Bool =>
+                (Finset.univ.filter (fun i : Fin n => u i ≠ v i)).card = 1) ∧
+              (∀ a b c d, a ≠ c → b ≠ d → ¬ (G.Adj a b ∧ G.Adj b c ∧ G.Adj c d ∧ G.Adj d a)) ∧
+              G.edgeFinset.card = m } : ℕ) : ℝ) / ((n * 2 ^ (n - 1) : ℕ) : ℝ))
+        Filter.atTop (nhds L) ∧
+      (1 / 2 : ℝ) ≤ L ∧ L ≤ 1447121170 / 2400000000 ∧
+      L < 603 / 1000 ∧ L < 60318 / 100000
+
+-- Finite-n explicit forms (all verified unconditionally):
+--   ppl033_b2q4_upper_exact (n ≥ 4):
+--     48 * 100000000 * (n - 2) * (n - 3) * G.edgeFinset.card ≤
+--       1447121170 * n * (n - 2) * (n - 3) * 2 ^ n +
+--       24 * (101444909 * (n - 3) + 50128370 * (4 * n - 6) + 173258785 * (n - 2)) * n * 2 ^ n
+--   ppl033_beats_baber_2012_explicit (n ≥ 22330): 100000 * G.edgeFinset.card < 60318 * (n * 2 ^ (n - 1))
+--   ppl033_lt_603_explicit            (n ≥ 144685):  1000 * G.edgeFinset.card <   603 * (n * 2 ^ (n - 1))
+```
+
+### Skeptical Definition Audit (`Mathlib` Grounding)
+
+| Mathematical Concept | Lean Expression | Mathlib Definition Check |
+|---|---|---|
+| **$n$-cube $Q_n$ & $G \subseteq Q_n$** | `G ≤ SimpleGraph.fromRel (fun u v : Fin n → Bool => (Finset.univ.filter (fun i : Fin n => u i ≠ v i)).card = 1)` | Vertex set is `{0,1}^n` (`Fin n → Bool`, `2^n` vertices). `SimpleGraph.fromRel r` symmetrizes `r` with irreflexivity (`a ≠ b ∧ (r a b ∨ r b a)`); since Hamming distance `1` is symmetric and never `0`, `Q_n` joins `u, v` iff they differ in exactly `1` coordinate. `G ≤ Q_n` means `∀ v w, G.Adj v w → Q_n.Adj v w` (spanning subgraph relation on simple graphs). |
+| **$\lvert E(G)\rvert$ vs. $n 2^{n-1}$ denominator** | `G.edgeFinset.card` vs. `n * 2 ^ (n - 1)` | `SimpleGraph.edgeSet` is a `Set (Sym2 V)` (unordered pairs `s(v, w)`, NOT ordered pairs `(v, w)`), and `edgeFinset := Set.toFinset G.edgeSet`. Mathlib's `sum_degrees_eq_twice_card_edges` confirms `∑ v, G.degree v = 2 * G.edgeFinset.card` (`#{(x,y) | G.Adj x y} = 2 * G.edgeFinset.card`). For `Q_n` (`n ≥ 1`), every vertex has degree `n`, so `2 * |E(Q_n)| = n * 2^n`, i.e. `|E(Q_n)| = n * 2^(n - 1)`. Thus `|E(G)| / (n * 2^(n - 1)) = |E(G)| / |E(Q_n)| ∈ [0, 1]` with **no factor-of-2 discrepancy** (and in `ppl033_b2q4_upper_exact`, multiplying both `2 * |E(G)|` and `2^n = 2 * 2^(n - 1)` cancels the common factor cleanly into `1447121170 / 2400000000`). |
+| **$C_4$-freeness** | `∀ a b c d, a ≠ c → b ≠ d → ¬ (G.Adj a b ∧ G.Adj b c ∧ G.Adj c d ∧ G.Adj d a)` | Any `SimpleGraph` is irreflexive (`G.loopless`), so `G.Adj a b` ⇒ `a ≠ b`, `G.Adj b c` ⇒ `b ≠ c`, `G.Adj c d` ⇒ `c ≠ d`, and `G.Adj d a` ⇒ `d ≠ a`. Combined with `a ≠ c` and `b ≠ d`, all four vertices `a, b, c, d` are pairwise distinct, forbidding every subgraph isomorphic to $C_4$. |
+| **$\mathrm{ex}(Q_n, C_4)$ & limit $L$** | `sSup { m : ℕ \| ∃ G ≤ Q_n, IsC4Free G ∧ G.edgeFinset.card = m }` | For each `n`, the set is nonempty (the empty graph `⊥` has `0` edges and is `C_4`-free) and bounded above by `|E(Q_n)|`. On nonempty bounded subsets of `ℕ`, `Nat.sSup` equals the exact maximum `ex(Q_n, C_4)`. Both `RHDirect.PPL033_B2Q4Cert` (`246` constants) and `RHDirect.PPL033_B2Q4Bound` (`148` constants) pass `leanchecker`, static zero-cheat scan (`0` hits, `0` `native_decide`, `0` `sorry`), and exhaustive axiom audit `⊆ {propext, Classical.choice, Quot.sound}`. |
+
+---
+
 ## Trustless Entry Point (`Challenge.lean` ↔ `Solution.lean`)
 
 To audit **46** unconditional pure-Mathlib headline theorems without reading any proof internals or trusting intermediate definitions:
